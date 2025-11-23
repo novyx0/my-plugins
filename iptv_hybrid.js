@@ -695,9 +695,8 @@
     }, {
       key: "list",
       value: function list() {
-        var _this3 = this;
         return new Promise(function (resolve) {
-          // Вбудований плейлист TVA
+          // Вбудований плейлист
           var embedded = [{
             id: 'tva_ua',
             name: 'Українські канали',
@@ -706,7 +705,7 @@
             embedded: true
           }];
 
-          // Завантажуємо користувацькі плейлисти з Storage
+          // Завантажуємо користувацькі плейлисти
           var custom = Lampa.Storage.get('iptv_playlist_custom', []);
           if (typeof custom === 'string') {
             try {
@@ -716,13 +715,8 @@
             }
           }
 
-          // Об'єднуємо embedded + custom
-          var all_playlists = embedded.concat(custom);
-
-          // Повертаємо результат
-          resolve({
-            list: all_playlists
-          });
+          // Об'єднуємо
+          resolve({ list: embedded.concat(custom) });
         });
       }
     }, {
@@ -772,7 +766,7 @@
                   logo: item.tvg && item.tvg.logo && item.tvg.logo.indexOf('http') == 0 ? item.tvg.logo : null,
                   group: item.group.title,
                   url: item.url,
-                  //vast_url: 'https://vast.ufouxbwn.com/vast.php?partner_id=9389722&format=2&referrer=cdn.kulik.uz',
+                  //vast_url: 'https://vast.ufouxbwn.com/vast.php?partner_id=9389722&format=2&referrer=cdn.',
                   catchup: item.catchup,
                   timeshift: item.timeshift,
                   tvg: item.tvg
@@ -916,7 +910,7 @@
 
   _defineProperty(Api, "network", new Lampa.Reguest());
 
-  _defineProperty(Api, "api_url", Lampa.Utils.protocol() + 'apitv.kulik.uz/');
+  _defineProperty(Api, "api_url", Lampa.Utils.protocol() + 'apitv./');
   _defineProperty(Api, "api_cub_url", Lampa.Utils.protocol() + Lampa.Manifest.cub_domain + '/api/iptv/');
 
   var Pilot = /*#__PURE__*/function () {
@@ -2665,7 +2659,7 @@
         var start_channel = Lampa.Arrays.clone(this.icons.icons_clone[data.position]);
         start_channel.original = this.icons.icons_clone[data.position];
         data.url = Url.prepareUrl(start_channel.url);
-        //data.vast_url = 'https://vast.ufouxbwn.com/vast.php?partner_id=9389722&format=2&referrer=cdn.kulik.uz';
+        //data.vast_url = 'https://vast.ufouxbwn.com/vast.php?partner_id=9389722&format=2&referrer=cdn.';
         
 
         if (this.archive && this.archive.channel == start_channel.original) {
@@ -4061,10 +4055,11 @@
         bg: 'Няма програми'
       },
       iptv_noload_kulikplaylist: {
-        ru: 'К сожалению, загрузка не удалась. Вероятно, вы не прошли  авторизацию в Лампе либо у Вас не активирован аккаунт в боте КуликТВ'
+        ru: 'Не вдалося завантажити плейлист. Перевірте з'єднання з інтернетом або URL плейлиста'
       },
-      kulik_select_playlist: {
-        ru: 'Сервер'
+      iptv_select_playlist: {
+        ru: 'Выберите плейлист',
+        uk: 'Виберіть плейлист'
       },
       iptv_all_channels: {
         ru: 'Все каналы',
@@ -4094,15 +4089,9 @@
         bg: 'Премахни от избрани'
       },
       iptv_playlist_empty: {
-        ru: 'К сожалению, на данный момент не могу подключится к серверу, обратитесь в поддержку, в чате TG: <span class="iptv-link">@lampaiptv</span><br />Либо попробуйте сменить сервер через нашего TG бота: <span class="iptv-link">@iptv_bot</span>'
+        ru: 'К сожалению, на данный момент не могу подключится к серверу, обратитесь в поддержку, в чате TG: <span class="iptv-link">@lampaiptv</span><br />Либо попробуйте сменить сервер через нашего TG бота: <span class="iptv-link"></span>'
       },
-      kulik_select_playlist_text: {
-        ru: 'Для того чтобы сменить сервер и стиль, вам необходимо перейти в нашего бота TG: <span class="iptv-link">@iptv_bot</span><br />через Настройки смените его, после незабудьте перезагрузить Лампу для применения настроек!<br /><br />Важно помнить, чтобы каналы работали вы должны быть авторизованы в Лампе!!!',
-        en: 'In order to change the server, you need to go to our bot TG: <span class="iptv-link">@iptv_bot</span><br /> change it through the Settings, then forget to restart the Lamp to apply the settings!',
-        uk: 'Для того щоб змінити сервер, вам необхідно перейти в нашого бота TG: <span class= "iptv-link" >@iptv_bot</span ><br /> через налаштування змінити його, після незабудьте перезавантажити Лампу для застосування налаштувань!',
-        be: 'Для таго каб змяніць сервер, вам неабходна перайсці ў нашага бота TG: <span class="iptv-link">@iptv_bot</span><br /> праз налады змяніць яго, пасля незабудьте перазагрузіць лямпу для прымянення налад!'
-      },
-      iptv_updated: {
+            iptv_updated: {
         ru: 'Обновлено',
         en: 'Updated',
         uk: 'Оновлено',
@@ -4736,7 +4725,7 @@
           var play = {
             title: _this2.data.name || '',
             url: _this2.data.url,
-            //vast_url: 'https://vast.ufouxbwn.com/vast.php?partner_id=9389722&format=2&referrer=cdn.kulik.uz',
+            //vast_url: 'https://vast.ufouxbwn.com/vast.php?partner_id=9389722&format=2&referrer=cdn.',
             tv: true
           };
           Lampa.Player.runas(Lampa.Storage.field('player_iptv'));
@@ -4819,7 +4808,7 @@
     Lampa.Manifest.plugins = manifest;
 
     function add() {
-      var button = $("<li class=\"menu__item selector\">\n            <div class=\"menu__ico\">\n                <svg height=\"36\" viewBox=\"0 0 38 36\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                    <rect x=\"2\" y=\"8\" width=\"34\" height=\"21\" rx=\"3\" stroke=\"currentColor\" stroke-width=\"3\"/>\n                    <line x1=\"13.0925\" y1=\"2.34874\" x2=\"16.3487\" y2=\"6.90754\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n                    <line x1=\"1.5\" y1=\"-1.5\" x2=\"9.31665\" y2=\"-1.5\" transform=\"matrix(-0.757816 0.652468 0.652468 0.757816 26.197 2)\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n                    <line x1=\"9.5\" y1=\"34.5\" x2=\"29.5\" y2=\"34.5\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n                </svg>\n            </div>\n            <div class=\"menu__text\">".concat(window.lampa_settings.iptv ? Lampa.Lang.translate('player_playlist') : 'КуликTV', "</div>\n        </li>"));
+      var button = $("<li class=\"menu__item selector\">\n            <div class=\"menu__ico\">\n                <svg height=\"36\" viewBox=\"0 0 38 36\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                    <rect x=\"2\" y=\"8\" width=\"34\" height=\"21\" rx=\"3\" stroke=\"currentColor\" stroke-width=\"3\"/>\n                    <line x1=\"13.0925\" y1=\"2.34874\" x2=\"16.3487\" y2=\"6.90754\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n                    <line x1=\"1.5\" y1=\"-1.5\" x2=\"9.31665\" y2=\"-1.5\" transform=\"matrix(-0.757816 0.652468 0.652468 0.757816 26.197 2)\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n                    <line x1=\"9.5\" y1=\"34.5\" x2=\"29.5\" y2=\"34.5\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n                </svg>\n            </div>\n            <div class=\"menu__text\">".concat(window.lampa_settings.iptv ? Lampa.Lang.translate('player_playlist') : 'IPTVTV', "</div>\n        </li>"));
       button.on('hover:enter', function () {
         if (window.lampa_settings.iptv) {
           if (Lampa.Activity.active().component == 'kulikiptv') return Lampa.Activity.active().activity.component().playlist();
@@ -4827,7 +4816,7 @@
 
         Lampa.Activity.push({
           url: '',
-          title: 'КуликКаналы (α)',
+          title: 'IPTV (α)',
           component: 'kulikiptv',
           page: 1
         });
@@ -4870,7 +4859,7 @@
   if (!window.plugin_iptv_ready) startPlugin();
   
 
-if (Lampa.Storage.field("start_page") == 'kulik_start') window.start_deep_link = {
+if (Lampa.Storage.field("start_page") == 'iptv_start') window.start_deep_link = {
     component: 'kulikiptv',
     page: 1,
     url: ''
@@ -4881,7 +4870,7 @@ Lampa.Params.select('start_page', {
     'favorite@history': '#{title_history}',
     'mytorrents': '#{title_mytorrents}',
     'last': '#{title_last}',
-    'kulik_start': 'КуликТВ'
+    'iptv_start': 'IPTV'
 }, 'main')
 
 })();
