@@ -706,7 +706,7 @@
             embedded: true
           }];
 
-          // Завантажуємо користувацькі плейлисти
+          // Завантажуємо користувацькі плейлисти з Storage
           var custom = Lampa.Storage.get('iptv_playlist_custom', []);
           if (typeof custom === 'string') {
             try {
@@ -716,7 +716,7 @@
             }
           }
 
-          // Об'єднуємо
+          // Об'єднуємо embedded + custom
           var all_playlists = embedded.concat(custom);
 
           // Повертаємо результат
@@ -724,7 +724,7 @@
             list: all_playlists
           });
         });
-      } }
+      }
     }, {
       key: "m3uClient",
       value: function m3uClient(url) {
